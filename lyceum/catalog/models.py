@@ -26,10 +26,20 @@ class Item(models.Model):
     text = models.TextField('Текст', validators=(MinNumWordsValidator(2),
                                                  OccurrenceWordsValidator(('превосходно', 'роскошно'))))
 
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
+
 
 class Tag(TagBaseModel):
-    pass
+    class Meta:
+        verbose_name = 'Тэг'
+        verbose_name_plural = 'Тэги'
 
 
 class Category(TagBaseModel):
     weight = models.IntegerField('Вес', default=100, validators=(MinValueValidator(0), MaxValueValidator(32767)))
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
