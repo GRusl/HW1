@@ -23,11 +23,12 @@ class Category(TagBaseModel):
 class Item(models.Model):
     is_published = models.BooleanField('Опубликовано', default=True)
 
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
-
-    tags = models.ManyToManyField(Tag)
-
     name = models.CharField('Название', max_length=150)
+
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
+
+    tags = models.ManyToManyField(Tag, verbose_name='Тэги')
+
     text = models.TextField('Текст', validators=(MinNumWordsValidator(2),
                                                  OccurrenceWordsValidator(('превосходно', 'роскошно'))))
 
