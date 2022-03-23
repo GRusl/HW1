@@ -35,3 +35,6 @@ class Item(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+    def __str__(self):
+        return self.name
