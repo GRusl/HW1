@@ -2,20 +2,16 @@ from django.db import models
 
 from catalog.validators import MinNumWordsValidator, OccurrenceWordsValidator
 
-from core.models import PublicationBaseModel
+from core.models import PublicationBaseModel, SlugBaseModel
 
 
-class Tag(PublicationBaseModel):
-    slug = models.SlugField(max_length=200, unique=True)
-
+class Tag(PublicationBaseModel, SlugBaseModel):
     class Meta:
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
 
 
-class Category(PublicationBaseModel):
-    slug = models.SlugField(max_length=200, unique=True)
-
+class Category(PublicationBaseModel, SlugBaseModel):
     weight = models.PositiveSmallIntegerField('Вес', default=100)
 
     class Meta:
@@ -24,13 +20,15 @@ class Category(PublicationBaseModel):
 
 
 class Item(PublicationBaseModel):
-    name = models.CharField('Название', max_length=150)
+    name = models.CharField('Название', max_length=150, help_text='Максимальная длина - 150 символов')
 
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
     tags = models.ManyToManyField(Tag, verbose_name='Тэги')
 
-    text = models.TextField('Описание', validators=(MinNumWordsValidator(2),
-                                                    OccurrenceWordsValidator(('превосходно', 'роскошно'))))
+    text = models.TextField('Описание',
+                            validators=(MinNumWordsValidator(2),
+                                        OccurrenceWordsValidator(('превосходно', 'роскошно'))),
+                            help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"')
 
     class Meta:
         verbose_name = 'Товар'
