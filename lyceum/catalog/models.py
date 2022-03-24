@@ -21,10 +21,8 @@ class Category(PublicationBaseModel, SlugBaseModel):
 
 class Item(PublicationBaseModel):
     name = models.CharField('Название', max_length=150, help_text='Максимальная длина - 150 символов')
-
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
     tags = models.ManyToManyField(Tag, verbose_name='Тэги')
-
     text = models.TextField('Описание',
                             validators=(MinNumWordsValidator(2),
                                         OccurrenceWordsValidator(('превосходно', 'роскошно'))),
