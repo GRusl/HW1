@@ -10,8 +10,8 @@ class ItemManager(models.Manager):
     def get_for_write(self):
         return self.get_queryset().filter(
             is_published=True
-        ).prefetch_related(
-            Prefetch('tags', queryset=Tag.objects.get_published())
+        ).only('name', 'text').prefetch_related(
+            Prefetch('tags', queryset=Tag.objects.get_published().only('name'))
         )
 
 
