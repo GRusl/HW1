@@ -12,8 +12,6 @@ class ItemManager(models.Manager):
             is_published=True
         ).prefetch_related(
             Prefetch('tags', queryset=Tag.objects.get_published())
-        ).select_related(
-            'category'
         )
 
 
