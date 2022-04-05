@@ -1,5 +1,19 @@
 {% for item in items %}
-    {% include "mini_item.html" with item=item %}
+    <div class="mini_item">
+        <h2>{{ item.name }}</h2>
+
+        {% if item.tags.all %}
+            <ul>
+                {% for tag in item.tags.all %}
+                    <li><i>{{ tag.name }}</i></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="description">
+            {{ item.text|truncatewords_html:10|linebreaks|default:"Очень хороший товар! А также посмотрите Гараж!!!" }}
+        </div>
+    </div>
 
     {% if not forloop.last %}
         <hr>

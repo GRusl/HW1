@@ -1,7 +1,4 @@
-from http import HTTPStatus
-from django.http import HttpResponse
-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Item
 
@@ -13,7 +10,6 @@ def item_list(request):
 
 
 def item_detail(request, int_id):
-    if int_id in (1, 2):
-        return render(request, 'catalog/item_detail.html')
+    item = get_object_or_404(Item, id=int_id)
 
-    return HttpResponse(status=HTTPStatus.NOT_FOUND)
+    return render(request, 'catalog/item_detail.html', context={'item': item})
