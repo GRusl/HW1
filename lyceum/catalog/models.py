@@ -1,8 +1,14 @@
 from django.db import models
+from django.db.models import Prefetch
 
 from catalog.validators import MinNumWordsValidator, OccurrenceWordsValidator
 
 from core.models import PublicationBaseModel, SlugBaseModel
+
+
+class ItemManager(models.Manager):
+    def get_for_write(self):
+        return self.get_queryset().filter(is_published=True).prefetch_related(Prefetch('tags', queryset=Tag.objects.get_published()))
 
 
 class Tag(PublicationBaseModel, SlugBaseModel):
@@ -34,3 +40,5 @@ class Item(PublicationBaseModel):
 
     def __str__(self):
         return self.name
+
+    objects = ItemManager()

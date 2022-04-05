@@ -1,0 +1,9 @@
+{% for item in items %}
+    {% include "mini_item.html" with item=item %}
+
+    {% if not forloop.last %}
+        <hr>
+    {% endif %}
+{% empty %}
+    Список пуст. Эй, админ, добавь инфы!
+{% endfor %}

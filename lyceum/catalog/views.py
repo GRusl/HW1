@@ -3,9 +3,13 @@ from django.http import HttpResponse
 
 from django.shortcuts import render
 
+from catalog.models import Item
+
 
 def item_list(request):
-    return render(request, 'catalog/item_list.html')
+    items = Item.objects.get_for_write()
+
+    return render(request, 'catalog/item_list.html', context={'items': items})
 
 
 def item_detail(request, int_id):
