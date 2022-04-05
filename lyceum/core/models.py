@@ -1,11 +1,18 @@
 from django.db import models
 
 
+class PublishedManager(models.Manager):
+    def get_published(self):
+        return self.get_queryset().filter(is_published=True)
+
+
 class PublicationBaseModel(models.Model):
     is_published = models.BooleanField('Опубликовано', default=True)
 
     class Meta:
         abstract = True
+
+    objects = PublishedManager()
 
 
 class SlugBaseModel(models.Model):

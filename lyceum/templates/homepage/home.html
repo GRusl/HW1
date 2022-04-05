@@ -8,5 +8,8 @@
 {% block content %}
     <main>
         <h1>Главная страница</h1>
+        {% for item in items %}
+            {% include "mini_item.html" with item=item %}
+        {% endfor %}
     </main>
 {% endblock content %}

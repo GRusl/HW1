@@ -1,0 +1,21 @@
+<div class="mini_item">
+    <h2>{{ item.name }}</h2>
+
+    {% if item.tags %}
+        <i>
+            <ul>
+                {% for tag in item.tags.all %}
+                    <li>{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+        </i>
+    {% endif %}
+
+    <p>
+        {% if item.text %}
+            {{ item.text|center:"15" }}
+        {% else %}
+            Очень хороший товар!
+        {% endif %}
+    </p>
+</div>
