@@ -11,7 +11,7 @@
         {% endif %}
 
         <div class="description">
-            {{ item.text|truncatewords_html:10|linebreaks|default:"Очень хороший товар! А также посмотрите Гараж!!!" }}
+            {{ item.text|truncatewords:10|linebreaks|default:"Очень хороший товар! А также посмотрите Гараж!!!" }}
         </div>
     </div>
 
