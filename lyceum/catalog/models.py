@@ -6,6 +6,15 @@ from catalog.validators import MinNumWordsValidator, OccurrenceWordsValidator
 from core.models import PublicationBaseModel, SlugBaseModel
 
 
+class ItemManager(models.Manager):
+    def get_for_write(self):
+        return self.get_queryset().filter(
+            is_published=True
+        ).only('name', 'text').prefetch_related(
+            Prefetch('tags', queryset=Tag.objects.get_published().only('name'))
+        )
+
+
 class Tag(PublicationBaseModel, SlugBaseModel):
     name = models.CharField('Название', max_length=150, default='', help_text='Максимальная длина - 150 символов')
 
@@ -19,12 +28,13 @@ class Tag(PublicationBaseModel, SlugBaseModel):
 
 class Category(PublicationBaseModel, SlugBaseModel):
     name = models.CharField('Название', max_length=150, default='', help_text='Максимальная длина - 150 символов')
-
     weight = models.PositiveSmallIntegerField('Вес', default=100)
 
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+        ordering = ('weight', )
 
     def __str__(self):
         return self.name
@@ -43,5 +53,9 @@ class Item(PublicationBaseModel):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
+        ordering = ('category__weight', )
+
     def __str__(self):
         return self.name
+
+    objects = ItemManager()
