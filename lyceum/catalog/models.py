@@ -9,7 +9,8 @@ from core.models import PublicationBaseModel, SlugBaseModel
 class ItemManager(models.Manager):
     def get_name_text_tags__name(self):
         return self.get_queryset().filter(
-            is_published=True
+            is_published=True,
+            category__is_published=True
         ).only('name', 'text').prefetch_related(
             Prefetch('tags', queryset=Tag.objects.get_published().only('name'))
         )
