@@ -16,7 +16,8 @@ class ItemManager(models.Manager):
 
     def get_name_text_tags__name_category__name(self):
         return self.get_queryset().filter(
-            is_published=True
+            is_published=True,
+            category__is_published=True
         ).select_related('category').only('name', 'text', 'category__name').prefetch_related(
             Prefetch('tags', queryset=Tag.objects.get_published().only('name'))
         )
