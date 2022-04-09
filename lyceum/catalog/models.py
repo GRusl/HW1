@@ -7,10 +7,17 @@ from core.models import PublicationBaseModel, SlugBaseModel
 
 
 class ItemManager(models.Manager):
-    def get_for_write(self):
+    def get_name_text_tags__name(self):
         return self.get_queryset().filter(
             is_published=True
         ).only('name', 'text').prefetch_related(
+            Prefetch('tags', queryset=Tag.objects.get_published().only('name'))
+        )
+
+    def get_name_text_tags__name_category__name(self):
+        return self.get_queryset().filter(
+            is_published=True
+        ).select_related('category').only('name', 'text', 'category__name').prefetch_related(
             Prefetch('tags', queryset=Tag.objects.get_published().only('name'))
         )
 
@@ -33,7 +40,6 @@ class Category(PublicationBaseModel, SlugBaseModel):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
-
         ordering = ('weight', )
 
     def __str__(self):
@@ -52,7 +58,6 @@ class Item(PublicationBaseModel):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
-
         ordering = ('category__weight', )
 
     def __str__(self):

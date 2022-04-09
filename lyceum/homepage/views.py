@@ -6,7 +6,7 @@ from catalog.models import Item, Tag
 
 
 def home(request):
-    items = Item.objects.get_for_write()
+    items = Item.objects.get_name_text_tags__name()
     if items.count() > 3:
         items_id = random.sample(list(items.values_list('id', flat=True)), 3)
         items = Item.objects.filter(id__in=items_id)
