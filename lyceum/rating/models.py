@@ -21,7 +21,6 @@ class Rating(models.Model):
     class Meta:
         verbose_name = 'Рейтинг'
         verbose_name_plural = 'Рейтинги'
-
         constraints = (
             models.UniqueConstraint(fields=['user', 'item'], name='unique appversion'),
         )
