@@ -20,6 +20,22 @@
             </ul>
         {% endif %}
 
-        <b>Средняя оценка {{ rating.star_aver }} из {{ rating.count }}</b>
+        <br><b>Средняя оценка {{ rating.star_aver }} ({{ rating.count }})</b>
+
+        <br>
+        {% if user.is_authenticated %}
+            {% if user_personal %}
+                Ваша оценка: {{ user_personal.eval }}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    {{ user_personal.form.as_ul }}
+                    <input type="submit" value="Редактировать">
+                </form>
+            {% else %}
+                Вы не оставляли оценку
+            {% endif %}
+        {% endif %}
     </main>
 {% endblock content %}

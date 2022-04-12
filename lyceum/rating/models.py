@@ -16,7 +16,7 @@ class Rating(models.Model):
 
     item = models.ForeignKey(Item, on_delete=models.PROTECT, verbose_name='Товар')
     user = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, verbose_name='Пользователь')
-    star = models.IntegerField('Оценка', choices=DEGREES_EVALUATION_CHOICES, null=True)
+    star = models.IntegerField('Оценка', choices=DEGREES_EVALUATION_CHOICES, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Рейтинг'
