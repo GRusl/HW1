@@ -3,10 +3,8 @@ from django import forms
 from rating.models import Rating
 
 
-class RatingUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Rating
-        fields = (Rating.star.field.name, )
-        field_classes = {
-            Rating.star.field.name: forms.RadioSelect
-        }
+class RatingUpdateForm(forms.Form):
+    star = forms.ChoiceField(
+        choices=[(0, '-----')] + list(Rating.DEGREES_EVALUATION_CHOICES),
+        widget=forms.RadioSelect()
+    )

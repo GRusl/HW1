@@ -19,7 +19,8 @@ def item_detail(request, int_id):
 
     item_rating = item.rating_set.only('star', 'user')
     rating_count = item_rating.count()
-    rating_star_aver = sum(item_rating.values_list('id', flat=True)) / (rating_count or 1)
+    rating_star_aver = sum(map(lambda x: x if x else 0,
+                               item_rating.values_list('star', flat=True))) / (rating_count or 1)
     rating = {
         'star_aver': rating_star_aver,
         'count': rating_count
