@@ -23,7 +23,7 @@ class ItemDetail(View):
 
         user_personal = {}
         if request.user.is_authenticated:
-            star = Rating.objects.get_or_create(user=request.user, item=item)[0].star
+            star = Rating.objects.only('star').get_or_create(user=request.user, item=item)[0].star
             form = RatingUpdateForm(request.POST or None, initial={'star': star if star else 0})
             eval = Rating.DEGREES_EVALUATION_CHOICES[star - 1][1] if star else '---'
             user_personal = {'form': form, 'eval': eval}
