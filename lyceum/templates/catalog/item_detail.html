@@ -41,6 +41,9 @@
             {% else %}
                 Вы не оставляли оценку
             {% endif %}
+        {% else %}
+            Для просмотра или редактирования своей оценки <a
+                href="/admin/login/?next={{ request.path }}">войдите</a> в систему!
         {% endif %}
     </main>
 {% endblock content %}
