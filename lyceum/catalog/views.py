@@ -19,7 +19,8 @@ def item_list(request):
 class ItemDetail(View):
     def get(self, request, int_id):
         item = get_object_or_404(Item.objects.get_name_text_tags__name_category__name(), id=int_id)
-        stars = Rating.objects.filter(item=item).aggregate(Avg('star'), Count('star'))
+        stars = Rating.objects.filter(item=item,
+                                      star__in=(1, 2, 3, 4, 5)).aggregate(Avg('star'), Count('star'))
 
         user_personal = {}
         if request.user.is_authenticated:
