@@ -1,5 +1,6 @@
 from http import HTTPStatus
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView, PasswordChangeView, PasswordChangeDoneView
@@ -56,7 +57,10 @@ class SignupView(CreateView):
 
 
 def user_list(request):
-    return render(request, 'users/user_list.html')
+    users = get_user_model().objects.only('username').all()
+
+    context = {'users': users}
+    return render(request, 'users/user_list.html', context=context)
 
 
 def user_detail(request, int_id):

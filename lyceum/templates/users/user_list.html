@@ -8,5 +8,8 @@
 {% block content %}
     <main>
         <h1>Список пользователей</h1>
+        {% for user_item in users %}
+            <a href="/auth/users/{{ user_item.id }}">{{ user_item.username }}</a><br>
+        {% endfor %}
     </main>
 {% endblock content %}
