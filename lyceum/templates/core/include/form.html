@@ -1,0 +1,20 @@
+<form method="{{ method|default:"post" }}">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <label for="{{ field.id_for_label }}">
+            {% if field.field.required %}
+                <span>*</span>
+            {% endif %}
+        </label>
+        {{ field }}
+        {% if field.help_text %}
+            <small id="{{ field.id_for_label }}-help">
+                {{ field.help_text|safe }}
+            </small>
+        {% endif %}
+        <br>
+    {% endfor %}
+
+    <input type="submit" value="{{ btn_text }}">
+</form>

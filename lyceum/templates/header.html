@@ -1,4 +1,12 @@
 <header>
     <p>Место для логотипа</p>
-    <nav>Навигация</nav>
+    <nav>
+        Навигация
+
+        {% if user.is_authenticated %}
+            <a href="/auth/logout/?next={{ request.path }}">Выйти</a>
+        {% else %}
+            <a href="/auth/login/?next={{ request.path }}">Войти</a>
+        {% endif %}
+    </nav>
 </header>
