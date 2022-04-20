@@ -13,6 +13,7 @@
                 {{ field.help_text|safe }}
             </small>
         {% endif %}
+        {{ field.errors }}
         <br>
     {% endfor %}
 
