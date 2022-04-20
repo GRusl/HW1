@@ -5,6 +5,14 @@ from catalog.models import Item
 from django.contrib.auth import get_user_model
 
 
+class UserManager(models.Manager):
+    def get_best(self, user):
+        return self.get_queryset().filter(
+            user=user,
+            star=5
+        ).select_related('item').only('item__name')
+
+
 class Rating(models.Model):
     DEGREES_EVALUATION_CHOICES = (
         (1, 'Ненависть'),
@@ -24,3 +32,5 @@ class Rating(models.Model):
         constraints = (
             models.UniqueConstraint(fields=['user', 'item'], name='unique appversion'),
         )
+
+    objects = UserManager()

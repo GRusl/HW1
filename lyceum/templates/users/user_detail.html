@@ -8,5 +8,13 @@
 {% block content %}
     <main>
         <h1>Информация о пользователе</h1>
+        {{ user_.first_name|default:"---" }}<br>
+        {{ user_.first_name|default:"---" }}<br>
+        {{ user_.email|default:"---" }}<br>
+        {{ user_.profile.birthday|default:"---" }}<br>
+
+        {% for rating in best_ratings %}
+            <a href="/catalog/{{ rating.id }}">{{ rating.item.name }}</a><br>
+        {% endfor %}
     </main>
 {% endblock content %}

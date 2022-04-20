@@ -8,5 +8,10 @@
 {% block content %}
     <main>
         <h1>Мой профиль</h1>
+        {% include "core/include/form.html" with form=form btn_text="Сохранить" %}
+
+        {% for rating in best_ratings %}
+            <a href="/catalog/{{ rating.id }}">{{ rating.item.name }}</a><br>
+        {% endfor %}
     </main>
 {% endblock content %}
