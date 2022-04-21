@@ -2,7 +2,7 @@ import random
 
 from django.shortcuts import render
 
-from catalog.models import Item, Tag
+from catalog.models import Item
 
 
 def home(request):
