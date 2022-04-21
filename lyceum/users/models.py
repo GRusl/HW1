@@ -14,4 +14,4 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return 'День рождения'
+        return str(self.birthday)
