@@ -1,13 +1,8 @@
-from http import HTTPStatus
-
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, \
-    PasswordResetConfirmView, PasswordResetCompleteView, PasswordChangeView, PasswordChangeDoneView
-from django.db.models import Prefetch
+from django.contrib.auth.views import LoginView
 
-from django.http import HttpResponse
+from django.db.models import Prefetch
 
 from django.shortcuts import render, reverse, get_object_or_404, redirect
 from django.views import View
@@ -26,34 +21,6 @@ class LoginView(LoginView):
 
     def get_success_url(self):
         return reverse('profile_home')
-
-
-class LogoutView(LogoutView):
-    next_page = '/'
-
-
-class PasswordChangeView(PasswordChangeView):
-    template_name = 'users/password_change.html'
-
-
-class PasswordChangeDoneView(PasswordChangeDoneView):
-    template_name = 'users/password_change_done.html'
-
-
-class PasswordResetView(PasswordResetView):
-    template_name = 'users/password_reset.html'
-
-
-class PasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'users/password_reset_done.html'
-
-
-class PasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'users/password_reset_confirm.html'
-
-
-class PasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'users/password_reset_complete.html'
 
 
 class SignupView(CreateView):
