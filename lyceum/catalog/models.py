@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Prefetch
 
+from ckeditor.fields import RichTextField
+
 from catalog.validators import MinNumWordsValidator, OccurrenceWordsValidator
 
 from core.models import PublicationBaseModel, SlugBaseModel
@@ -52,10 +54,10 @@ class Item(PublicationBaseModel):
     name = models.CharField('Название', max_length=150, help_text='Максимальная длина - 150 символов')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
     tags = models.ManyToManyField(Tag, verbose_name='Тэги')
-    text = models.TextField('Описание',
-                            validators=(MinNumWordsValidator(2),
-                                        OccurrenceWordsValidator(('превосходно', 'роскошно'))),
-                            help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"')
+    text = RichTextField('Описание',
+                         validators=(MinNumWordsValidator(2),
+                                     OccurrenceWordsValidator(('превосходно', 'роскошно'))),
+                         help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"')
 
     class Meta:
         verbose_name = 'Товар'
