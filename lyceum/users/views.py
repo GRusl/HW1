@@ -32,7 +32,7 @@ class SignupView(CreateView):
 
 
 def user_list(request):
-    users = get_user_model().objects.only("username").filter(is_active=True)
+    users = get_user_model().objects.only("email").filter(is_active=True)
 
     context = {"users": users}
     return render(request, "users/user_list.html", context=context)

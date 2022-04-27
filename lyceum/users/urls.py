@@ -12,9 +12,9 @@ from django.contrib.auth.views import (
 from users import views
 
 urlpatterns = [
-    path("users/", views.user_list),
-    path("users/<int:int_id>/", views.user_detail),
-    path("signup/", views.SignupView.as_view()),
+    path("users/", views.user_list, name="user_list"),
+    path("users/<int:int_id>/", views.user_detail, name="user_detail"),
+    path("signup/", views.SignupView.as_view(), name="signup"),
     path("profile/", views.ProfileView.as_view(), name="profile_home"),
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(next_page="/"), name="logout"),
