@@ -20,7 +20,7 @@ class LoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse("profile_home")
+        return reverse("auth:profile_home")
 
 
 class SignupView(CreateView):
@@ -28,7 +28,7 @@ class SignupView(CreateView):
     template_name = "users/signup.html"
 
     def get_success_url(self):
-        return reverse("login")
+        return reverse("auth:login")
 
 
 def user_list(request):
@@ -67,7 +67,7 @@ class ProfileView(View):
 
             context = {"form": form, "best_ratings": best_ratings}
             return render(request, "users/profile.html", context=context)
-        return redirect("login")
+        return redirect("auth:login")
 
     def post(self, request):
         if request.user.is_authenticated:
@@ -82,5 +82,5 @@ class ProfileView(View):
                 profile.birthday = form.cleaned_data["birthday"]
                 profile.save(update_fields=["birthday"])
 
-            return redirect("profile_home")
-        return redirect("login")
+            return redirect("auth:profile_home")
+        return redirect("auth:login")
