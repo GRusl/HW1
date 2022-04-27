@@ -8,11 +8,12 @@ from rating.models import Rating
 from rating.forms import RatingUpdateForm
 
 
-def item_list(request):
-    items = Item.objects.get_name_text_tags__name_category__name()
+class ItemList(View):
+    def get(self, request):
+        items = Item.objects.get_name_text_tags__name_category__name()
 
-    context = {"items": items}
-    return render(request, "catalog/item_list.html", context=context)
+        context = {"items": items}
+        return render(request, "catalog/item_list.html", context=context)
 
 
 # https://www.youtube.com/watch?v=tajXWvOZyxQ

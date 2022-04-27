@@ -31,26 +31,28 @@ class SignupView(CreateView):
         return reverse("auth:login")
 
 
-def user_list(request):
-    users = get_user_model().objects.only("email").filter(is_active=True)
+class UserList(View):
+    def get(self, request):
+        users = get_user_model().objects.only("email").filter(is_active=True)
 
-    context = {"users": users}
-    return render(request, "users/user_list.html", context=context)
+        context = {"users": users}
+        return render(request, "users/user_list.html", context=context)
 
 
-def user_detail(request, int_id):
-    user = get_object_or_404(
-        get_user_model()
-        .objects.only("first_name", "last_name", "email")
-        .prefetch_related(
-            Prefetch("profile", queryset=Profile.objects.only("birthday"))
-        ),
-        id=int_id,
-    )
-    best_ratings = Rating.objects.get_best(user)
+class UserDetail(View):
+    def get(self, request, int_id):
+        user = get_object_or_404(
+            get_user_model()
+                .objects.only("first_name", "last_name", "email")
+                .prefetch_related(
+                Prefetch("profile", queryset=Profile.objects.only("birthday"))
+            ),
+            id=int_id,
+        )
+        best_ratings = Rating.objects.get_best(user)
 
-    context = {"user_": user, "best_ratings": best_ratings}
-    return render(request, "users/user_detail.html", context=context)
+        context = {"user_": user, "best_ratings": best_ratings}
+        return render(request, "users/user_detail.html", context=context)
 
 
 class ProfileView(View):

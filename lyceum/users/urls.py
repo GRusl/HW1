@@ -14,8 +14,8 @@ from users import views
 app_name = "users"
 
 urlpatterns = [
-    path("users/", views.user_list, name="user_list"),
-    path("users/<int:int_id>/", views.user_detail, name="user_detail"),
+    path("users/", views.UserList.as_view(), name="user_list"),
+    path("users/<int:int_id>/", views.UserDetail.as_view(), name="user_detail"),
 
     path("signup/", views.SignupView.as_view(), name="signup"),
     path("profile/", views.ProfileView.as_view(), name="profile_home"),
