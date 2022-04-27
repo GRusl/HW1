@@ -5,7 +5,7 @@ from users.models import User
 
 
 class UserUpdateForm(forms.Form):
-    email = forms.EmailField(label="email")
+    email = forms.EmailField(label="Адрес электронной почты")
     name = forms.CharField(label="Имя", required=False)
     birthday = forms.DateField(label="День рождения", required=False)
 
