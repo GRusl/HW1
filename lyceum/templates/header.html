@@ -26,6 +26,15 @@
 						<a class="nav-link" aria-current="page" href="/admin">Админка</a>
 					</li>
 				</ul>
+
+                {% if birthday_people_email %}
+                    Сегодня дни рождения у:&ensp;
+                    {% for user in birthday_people_email %}
+                        <a href="{% url "auth:user_detail" user.id %}">
+                            {{ user.email }}
+                        </a>{% if not forloop.last %},&ensp;{% endif %}
+                    {% endfor %}
+                {% endif %}
 			</div>
 
             {% if user.is_authenticated %}
