@@ -2,17 +2,21 @@
 
 
 {% block title %}
-    Список товаров
+	Список товаров
 {% endblock title %}
 
 {% block content %}
-    <main>
-        <h1>Список товаров</h1>
-        {% regroup items by category as blocks_items %}
+	<main>
+		<h1>Список товаров</h1>
+		{% regroup items by category as blocks_items %}
 
-        {% for block_items in blocks_items %}
-            <h2>{{ block_items.grouper.name }}</h2>
-            {% include "catalog/include/mini_items.html" with items=block_items.list %}
-        {% endfor %}
-    </main>
+		{% for block_items in blocks_items %}
+			<h2>{{ block_items.grouper.name }}</h2>
+			{% include "catalog/include/mini_items.html" with items=block_items.list %}
+			{% empty %}
+			<div class="alert alert-danger" role="alert">
+				Список пуст.
+			</div>
+		{% endfor %}
+	</main>
 {% endblock content %}

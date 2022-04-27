@@ -6,10 +6,29 @@
 {% endblock title %}
 
 {% block content %}
-    <main>
-        <h1>Список пользователей</h1>
-        {% for user_item in users %}
-            <a href="/auth/users/{{ user_item.id }}">{{ user_item.email }}</a><br>
-        {% endfor %}
-    </main>
+	<h1>Список пользователей</h1>
+	<div class="card-columns">
+		{% for user in users %}
+			<div class="card">
+				<div class="card-body">
+					<div class="card-title">
+						<h5>{{ user.email }}</h5>
+					</div>
+					{% if user.first_name or user.last_name %}
+						<p class="card-text">{{ user.first_name }} {{ user.last_name }}</p>
+					{% endif %}
+					{% if user.profile.birthday %}
+						<p class="card-text">{{ user.profile.birthday }}</p>
+					{% endif %}
+				</div>
+				<div class="card-body">
+					<a href="{% url 'user_detail' user.id %}" class="btn btn-primary">Подробнее</a>
+				</div>
+			</div>
+			{% empty %}
+			<div class="alert alert-danger" role="alert">
+				Пользователей нет
+			</div>
+		{% endfor %}
+	</div>
 {% endblock content %}

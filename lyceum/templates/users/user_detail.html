@@ -2,19 +2,37 @@
 
 
 {% block title %}
-    Информация о пользователе
+	Информация о пользователе
 {% endblock title %}
 
 {% block content %}
-    <main>
-        <h1>Информация о пользователе</h1>
-        {{ user_.first_name|default:"---" }}<br>
-        {{ user_.first_name|default:"---" }}<br>
-        {{ user_.email|default:"---" }}<br>
-        {{ user_.profile.birthday|default:"---" }}<br>
-
-        {% for rating in best_ratings %}
-            <a href="/catalog/{{ rating.id }}">{{ rating.item.name }}</a><br>
-        {% endfor %}
-    </main>
+	<h1>Информация о пользователе</h1>
+	<div class="card">
+		<div class="card-body">
+			{% if user_.first_name %}
+				<p>Имя: {{ user_.first_name }}</p>
+			{% endif %}
+			{% if user_.last_name %}
+				<p>Фамилия: {{ user_.last_name }}</p>
+			{% endif %}
+			{% if user_.email %}
+				<p>Почта: {{ user_.email }}</p>
+			{% endif %}
+			{% if user_.profile.birthday %}
+				<p>День рождения: {{ user_.profile.birthday }}</p>
+			{% endif %}
+			{% if items %}
+				<h3>Список любимых товаров</h3>
+				<ul>
+					{% for item in items %}
+						<li>{{ item.name }}</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<div class="alert alert-danger" role="alert">
+					Любимых товаров нет
+				</div>
+			{% endif %}
+		</div>
+	</div>
 {% endblock content %}
