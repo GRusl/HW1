@@ -15,26 +15,38 @@ class ProfileInlined(admin.TabularInline):
 
 
 class UserAdmin(BaseUserAdmin):
-    ordering = ('email', )
-    inlines = (ProfileInlined, )
+    ordering = ("email",)
+    inlines = (ProfileInlined,)
 
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
-        (_('Permissions'), {
-            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
-        }),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (None, {"fields": ("email", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name")}),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2'),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("email", "password1", "password2"),
+            },
+        ),
     )
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
-    search_fields = ('first_name', 'last_name', 'email')
-    list_display_links = ('email', )
+    list_display = ("email", "first_name", "last_name", "is_staff")
+    search_fields = ("first_name", "last_name", "email")
+    list_display_links = ("email",)
 
 
 # admin.site.unregister(User)

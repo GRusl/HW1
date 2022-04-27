@@ -10,52 +10,143 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
-                ('slug', models.SlugField(help_text='Максимальная длина - 200 символов, уникальное значение рамках таблицы, только цифры, буквы латиницы и символы - и _', max_length=200, unique=True)),
-                ('name', models.CharField(default='', help_text='Максимальная длина - 150 символов', max_length=150, verbose_name='Название')),
-                ('weight', models.PositiveSmallIntegerField(default=100, verbose_name='Вес')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_published",
+                    models.BooleanField(default=True, verbose_name="Опубликовано"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        help_text="Максимальная длина - 200 символов, уникальное значение рамках таблицы, только цифры, буквы латиницы и символы - и _",
+                        max_length=200,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        default="",
+                        help_text="Максимальная длина - 150 символов",
+                        max_length=150,
+                        verbose_name="Название",
+                    ),
+                ),
+                (
+                    "weight",
+                    models.PositiveSmallIntegerField(default=100, verbose_name="Вес"),
+                ),
             ],
             options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
-                'ordering': ('weight',),
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
+                "ordering": ("weight",),
             },
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
-                ('slug', models.SlugField(help_text='Максимальная длина - 200 символов, уникальное значение рамках таблицы, только цифры, буквы латиницы и символы - и _', max_length=200, unique=True)),
-                ('name', models.CharField(default='', help_text='Максимальная длина - 150 символов', max_length=150, verbose_name='Название')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_published",
+                    models.BooleanField(default=True, verbose_name="Опубликовано"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        help_text="Максимальная длина - 200 символов, уникальное значение рамках таблицы, только цифры, буквы латиницы и символы - и _",
+                        max_length=200,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        default="",
+                        help_text="Максимальная длина - 150 символов",
+                        max_length=150,
+                        verbose_name="Название",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Тэг',
-                'verbose_name_plural': 'Тэги',
+                "verbose_name": "Тэг",
+                "verbose_name_plural": "Тэги",
             },
         ),
         migrations.CreateModel(
-            name='Item',
+            name="Item",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
-                ('name', models.CharField(help_text='Максимальная длина - 150 символов', max_length=150, verbose_name='Название')),
-                ('text', django_quill.fields.QuillField(help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"', validators=[catalog.validators.MinNumWordsValidator(2), catalog.validators.OccurrenceWordsValidator(('превосходно', 'роскошно'))], verbose_name='Описание')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='catalog.category', verbose_name='Категория')),
-                ('tags', models.ManyToManyField(to='catalog.Tag', verbose_name='Тэги')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_published",
+                    models.BooleanField(default=True, verbose_name="Опубликовано"),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Максимальная длина - 150 символов",
+                        max_length=150,
+                        verbose_name="Название",
+                    ),
+                ),
+                (
+                    "text",
+                    django_quill.fields.QuillField(
+                        help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"',
+                        validators=[
+                            catalog.validators.MinNumWordsValidator(2),
+                            catalog.validators.OccurrenceWordsValidator(
+                                ("превосходно", "роскошно")
+                            ),
+                        ],
+                        verbose_name="Описание",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="catalog.category",
+                        verbose_name="Категория",
+                    ),
+                ),
+                ("tags", models.ManyToManyField(to="catalog.Tag", verbose_name="Тэги")),
             ],
             options={
-                'verbose_name': 'Товар',
-                'verbose_name_plural': 'Товары',
-                'ordering': ('category__weight',),
+                "verbose_name": "Товар",
+                "verbose_name_plural": "Товары",
+                "ordering": ("category__weight",),
             },
         ),
     ]

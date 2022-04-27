@@ -10,18 +10,24 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('rating', '0001_initial'),
+        ("rating", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='rating',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь'),
+            model_name="rating",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Пользователь",
+            ),
         ),
         migrations.AddConstraint(
-            model_name='rating',
-            constraint=models.UniqueConstraint(fields=('user', 'item'), name='unique appversion'),
+            model_name="rating",
+            constraint=models.UniqueConstraint(
+                fields=("user", "item"), name="unique appversion"
+            ),
         ),
     ]

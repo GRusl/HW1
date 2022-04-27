@@ -7,7 +7,7 @@ class PublishedManager(models.Manager):
 
 
 class PublicationBaseModel(models.Model):
-    is_published = models.BooleanField('Опубликовано', default=True)
+    is_published = models.BooleanField("Опубликовано", default=True)
 
     class Meta:
         abstract = True
@@ -16,9 +16,13 @@ class PublicationBaseModel(models.Model):
 
 
 class SlugBaseModel(models.Model):
-    slug = models.SlugField(max_length=200, unique=True, help_text='Максимальная длина - 200 символов, уникальное '
-                                                                   'значение рамках таблицы, только цифры, буквы '
-                                                                   'латиницы и символы - и _')
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+        help_text="Максимальная длина - 200 символов, уникальное "
+        "значение рамках таблицы, только цифры, буквы "
+        "латиницы и символы - и _",
+    )
 
     class Meta:
         abstract = True

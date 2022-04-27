@@ -8,13 +8,22 @@ import tinymce.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalog', '0001_initial'),
+        ("catalog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='item',
-            name='text',
-            field=tinymce.models.HTMLField(help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"', validators=[catalog.validators.MinNumWordsValidator(2), catalog.validators.OccurrenceWordsValidator(('превосходно', 'роскошно'))], verbose_name='Описание'),
+            model_name="item",
+            name="text",
+            field=tinymce.models.HTMLField(
+                help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"',
+                validators=[
+                    catalog.validators.MinNumWordsValidator(2),
+                    catalog.validators.OccurrenceWordsValidator(
+                        ("превосходно", "роскошно")
+                    ),
+                ],
+                verbose_name="Описание",
+            ),
         ),
     ]

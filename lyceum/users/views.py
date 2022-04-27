@@ -16,38 +16,41 @@ from users.forms import UserUpdateForm
 
 class LoginView(LoginView):
     authentication_form = AuthenticationForm
-    template_name = 'users/login.html'
+    template_name = "users/login.html"
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse('profile_home')
+        return reverse("profile_home")
 
 
 class SignupView(CreateView):
     form_class = UserCreationForm
-    template_name = 'users/signup.html'
+    template_name = "users/signup.html"
 
     def get_success_url(self):
-        return reverse('login')
+        return reverse("login")
 
 
 def user_list(request):
-    users = get_user_model().objects.only('username').filter(is_active=True)
+    users = get_user_model().objects.only("username").filter(is_active=True)
 
-    context = {'users': users}
-    return render(request, 'users/user_list.html', context=context)
+    context = {"users": users}
+    return render(request, "users/user_list.html", context=context)
 
 
 def user_detail(request, int_id):
     user = get_object_or_404(
-        get_user_model().objects.only('first_name',
-                                      'last_name', 'email').prefetch_related(
-            Prefetch('profile', queryset=Profile.objects.only('birthday'))
-        ), id=int_id)
+        get_user_model()
+        .objects.only("first_name", "last_name", "email")
+        .prefetch_related(
+            Prefetch("profile", queryset=Profile.objects.only("birthday"))
+        ),
+        id=int_id,
+    )
     best_ratings = Rating.objects.get_best(user)
 
-    context = {'user_': user, 'best_ratings': best_ratings}
-    return render(request, 'users/user_detail.html', context=context)
+    context = {"user_": user, "best_ratings": best_ratings}
+    return render(request, "users/user_detail.html", context=context)
 
 
 class ProfileView(View):
@@ -55,29 +58,29 @@ class ProfileView(View):
         if request.user.is_authenticated:
             form = UserUpdateForm(
                 initial={
-                    'name': request.user.first_name,
-                    'email': request.user.email,
-                    'birthday': request.user.profile.birthday,
+                    "name": request.user.first_name,
+                    "email": request.user.email,
+                    "birthday": request.user.profile.birthday,
                 }
             )
             best_ratings = Rating.objects.get_best(request.user)
 
-            context = {'form': form, 'best_ratings': best_ratings}
-            return render(request, 'users/profile.html', context=context)
-        return redirect('login')
+            context = {"form": form, "best_ratings": best_ratings}
+            return render(request, "users/profile.html", context=context)
+        return redirect("login")
 
     def post(self, request):
         if request.user.is_authenticated:
             form = UserUpdateForm(request.POST or None)
             if form.is_valid():
                 user = request.user
-                user.first_name = form.cleaned_data['name']
-                user.email = form.cleaned_data['email']
-                user.save(update_fields=['first_name', 'email'])
+                user.first_name = form.cleaned_data["name"]
+                user.email = form.cleaned_data["email"]
+                user.save(update_fields=["first_name", "email"])
 
                 profile = user.profile
-                profile.birthday = form.cleaned_data['birthday']
-                profile.save(update_fields=['birthday'])
+                profile.birthday = form.cleaned_data["birthday"]
+                profile.save(update_fields=["birthday"])
 
-            return redirect('profile_home')
-        return redirect('login')
+            return redirect("profile_home")
+        return redirect("login")
