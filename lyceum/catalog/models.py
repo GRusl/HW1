@@ -1,10 +1,10 @@
+from turtle import up
 from django.db import models
 from django.db.models import Prefetch
-
+from sorl.thumbnail import get_thumbnail
 from tinymce.models import HTMLField
-
 from catalog.validators import MinNumWordsValidator, OccurrenceWordsValidator
-
+from django.utils.safestring import mark_safe
 from core.models import PublicationBaseModel, SlugBaseModel
 
 
@@ -58,6 +58,20 @@ class Item(PublicationBaseModel):
                      validators=(MinNumWordsValidator(2),
                                  OccurrenceWordsValidator(('превосходно', 'роскошно'))),
                      help_text='Минимум два слова. Обязательно содержится слово "превосходно" или "роскошно"')
+    upload = models.ImageField(upload_to='uploads/', null=True)
+
+    def get_image_x1280(self):
+        return get_thumbnail(self.upload, '400', quality=51)
+
+    def get_image_400x300(self):
+        return get_thumbnail(self.upload, '100x100', quality=51)
+
+    def image_tmb(self):
+        if self.upload:
+            return mark_safe(
+                f'<img src="{self.upload.url}" width="50">'
+            )
+        return 'нет изоражения'
 
     class Meta:
         verbose_name = 'Товар'
@@ -68,3 +82,13 @@ class Item(PublicationBaseModel):
         return self.name
 
     objects = ItemManager()
+
+
+class ImageModel(models.Model):
+    catalog_image = models.ImageField(upload_to='uploads/', null=True)
+    image_item = models.ManyToManyField(Item, verbose_name='Вещи')
+    def get_image_400x300(self):
+        return get_thumbnail(self.catalog_image, '100x100', quality=51)
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'

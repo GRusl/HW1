@@ -2,51 +2,55 @@
 
 
 {% block title %}
-    Подробное описание товара
+Подробное описание товара
 {% endblock title %}
 
 {% block content %}
-    <main>
-        <h1>Подробное описание товара</h1>
-        <h2>{{ item.name }}</h2>
+<main>
+    <h1>Подробное описание товара</h1>
+    <h2>{{ item.name }}</h2>
 
-        {{ item.category.name }}
+    {{ item.category.name }}
 
-        {% if item.tags.all %}
-            <ul>
-                {% for tag in item.tags.all %}
-                    <li><i>{{ tag.name }}</i></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+    {% if item.tags.all %}
+    <ul>
+        {% for tag in item.tags.all %}
+        <li><i>{{ tag.name }}</i></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-        <br>
-        <b>
-            {% if stars.star__avg %}
-                Средняя оценка {{ stars.star__avg }} ({{ stars.star__count }})
-            {% else %}
-                Никто не добавил оценку... Повод быть первым!
-            {% endif %}
-        </b>
-
-        <br>
-        {% if user.is_authenticated %}
-            Ваша оценка: {{ user_personal.eval }}
-
-            <form method="post">
-                {% csrf_token %}
-
-                {% for radio in user_personal.form.star %}
-                    <div class="myradio">
-                        {{ radio }}
-                    </div>
-                {% endfor %}
-
-                <input type="submit" value="Редактировать">
-            </form>
+    <img src="{{item.get_image_x1280.url}}">
+    <br>
+    {% for image in images %}
+    <img src="{{image.get_image_400x300.url}}">
+    {% endfor %}
+    <br>
+    <b>
+        {% if stars.star__avg %}
+        Средняя оценка {{ stars.star__avg }} ({{ stars.star__count }})
         {% else %}
-            Для просмотра или редактирования своей оценки <a
-                href="/admin/login/?next={{ request.path }}">войдите</a> в систему!
+        Никто не добавил оценку... Повод быть первым!
         {% endif %}
-    </main>
+    </b>
+
+    <br>
+    {% if user.is_authenticated %}
+    Ваша оценка: {{ user_personal.eval }}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for radio in user_personal.form.star %}
+        <div class="myradio">
+            {{ radio }}
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="Редактировать">
+    </form>
+    {% else %}
+    Для просмотра или редактирования своей оценки <a href="/admin/login/?next={{ request.path }}">войдите</a> в систему!
+    {% endif %}
+</main>
 {% endblock content %}

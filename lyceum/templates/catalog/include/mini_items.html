@@ -1,23 +1,24 @@
 {% for item in items %}
-    <div class="mini_item">
-        <h3>{{ item.name }}</h3>
+<div class="mini_item">
+    <h3>{{ item.name }}</h3>
 
-        {% if item.tags.all %}
-            <ul>
-                {% for tag in item.tags.all %}
-                    <li><i>{{ tag.name }}</i></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        <div class="description">
-            {{ item.text|truncatewords:10|linebreaks|default:"Очень хороший товар! А также посмотрите Гараж!!!" }}
-        </div>
-    </div>
-
-    {% if not forloop.last %}
-        <hr>
+    {% if item.tags.all %}
+    <ul>
+        {% for tag in item.tags.all %}
+        <li><i>{{ tag.name }}</i></li>
+        {% endfor %}
+    </ul>
     {% endif %}
+
+    <div class="description">
+        {{ item.text|truncatewords:10|linebreaks|default:"Очень хороший товар! А также посмотрите Гараж!!!" }}
+    </div>
+    <img src="{{item.get_image_400x300.url}}">
+</div>
+
+{% if not forloop.last %}
+<hr>
+{% endif %}
 {% empty %}
-    Список пуст. Эй, админ, добавь инфы!
+Список пуст. Эй, админ, добавь инфы!
 {% endfor %}
