@@ -9,6 +9,7 @@
     <main>
         <h1>Мой профиль</h1>
         <a href="{% url "auth:logout"%}?next={{ request.path }}" class="btn btn-outline-danger">Выйти</a>
+        <a href="{% url "auth:password_change"%}" class="btn btn-outline-secondary">Сменить пароль</a>
         <br>
         <br>
 
