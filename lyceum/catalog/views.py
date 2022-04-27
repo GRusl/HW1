@@ -24,6 +24,7 @@ class ItemDetail(View):
         stars = Rating.objects.filter(item=item, star__in=(1, 2, 3, 4, 5)).aggregate(
             Avg("star"), Count("star")
         )
+
         images = ImageModel.objects.filter(image_item=int_id).only("catalog_image")
         user_personal = {}
         if request.user.is_authenticated:
@@ -35,8 +36,7 @@ class ItemDetail(View):
             form = RatingUpdateForm(
                 request.POST or None, initial={"star": star if star else 0}
             )
-            eval = Rating.DEGREES_EVALUATION_CHOICES[star - 1][1] if star else "---"
-            user_personal = {"form": form, "eval": eval}
+            user_personal = {"form": form}
 
         context = {
             "item": item,
