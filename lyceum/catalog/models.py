@@ -106,7 +106,7 @@ class Item(PublicationBaseModel):
 
 class ImageModel(models.Model):
     catalog_image = models.ImageField(upload_to="uploads/", null=True)
-    image_item = models.ManyToManyField(Item, verbose_name="Вещи")
+    image_item = models.ForeignKey(Item, on_delete=models.PROTECT, verbose_name="Вещи", default=None)
 
     def get_image_400x300(self):
         return get_thumbnail(self.catalog_image, "100x100", quality=51)

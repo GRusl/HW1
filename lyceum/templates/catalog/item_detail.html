@@ -14,34 +14,36 @@
 			{% endautoescape %}
 			<p>Категория - {{ item.category.name }}</p>
 			<p>Теги - {% for tag in item.tags.all %}
-				<span class="badge rounded-pill bg-primary">{{ tag.name }}</span>{% endfor %}</p>
+				<span class="badge rounded-pill bg-primary">{{ tag.name }}</span>{% endfor %}
+			</p>
 			<h6>{% if stars.star__avg %}{{ stars.star__avg }}{% else %}0.0{% endif %} звёзд /
 				оценок: {{ stars.star__count }}</h6>
-
+			<img src="{{ item.get_image_400x300.url }}" alt="Image">
+			<br>
 			{% for image in images %}
-				<img src="{{ image.get_image_400x300.url }}" alt="Image">
-				{% empty %}
-				<div class="alert alert-danger" role="alert">
-					Картинка отсутствует
-				</div>
+			<img src="{{ image.get_image_400x300.url }}" alt="Image">
+			{% empty %}
+			<div class="alert alert-danger" role="alert">
+				Картинка отсутствует
+			</div>
 			{% endfor %}
 
 			{% if user.is_authenticated %}
-				<form method='post'>
-					{% csrf_token %}
-					{% for radio in user_personal.form.star %}
-						<div class="form-check">
-							{{ radio }}
-						</div>
-					{% endfor %}
-					<button type="submit" class="btn btn-primary">{% if star_user == 0 %}Поставить оценку{% else %}
-						Изменить оценку{% endif %}</button>
-				</form>
-			{% else %}
-				<div class="alert alert-danger" role="alert">
-					Для просмотра или редактирования своей оценки
-					<a href="{% url "login" %}">войдите</a> в систему!
+			<form method='post'>
+				{% csrf_token %}
+				{% for radio in user_personal.form.star %}
+				<div class="form-check">
+					{{ radio }}
 				</div>
+				{% endfor %}
+				<button type="submit" class="btn btn-primary">{% if star_user == 0 %}Поставить оценку{% else %}
+					Изменить оценку{% endif %}</button>
+			</form>
+			{% else %}
+			<div class="alert alert-danger" role="alert">
+				Для просмотра или редактирования своей оценки
+				<a href="{% url " login" %}">войдите</a> в систему!
+			</div>
 			{% endif %}
 		</div>
 	</div>

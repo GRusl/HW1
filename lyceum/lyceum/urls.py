@@ -11,7 +11,8 @@ urlpatterns = [
     path("auth/", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
     path("tinymce/", include("tinymce.urls")),
-]
+    
+] 
 
 if settings.DEBUG:
     import debug_toolbar
