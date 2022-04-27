@@ -6,8 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY", "vetopwu2v5m9phh50fd7=59j7p*+d*17q8cor7vjg+*j1dwk")
 
-# DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
+
 ALLOWED_HOSTS = ["*"]
 
 INTERNAL_IPS = ["127.0.0.1"]
