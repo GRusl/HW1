@@ -16,10 +16,13 @@ app_name = "users"
 urlpatterns = [
     path("users/", views.user_list, name="user_list"),
     path("users/<int:int_id>/", views.user_detail, name="user_detail"),
+
     path("signup/", views.SignupView.as_view(), name="signup"),
     path("profile/", views.ProfileView.as_view(), name="profile_home"),
+
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(next_page="/"), name="logout"),
+
     path(
         "password_change/",
         PasswordChangeView.as_view(template_name="users/password_change.html"),
@@ -30,6 +33,7 @@ urlpatterns = [
         PasswordChangeDoneView.as_view(template_name="users/password_change_done.html"),
         name="password_change_done",
     ),
+
     path(
         "password_reset/",
         PasswordResetView.as_view(template_name="users/password_reset.html"),

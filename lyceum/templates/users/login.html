@@ -8,5 +8,6 @@
 {% block content %}
     <main>
         {% include "core/include/form.html" with form=form btn_text="Войти" %}
+        <a href="{% url "auth:signup" %}">Зарегистрироваться</a>
     </main>
 {% endblock content %}
