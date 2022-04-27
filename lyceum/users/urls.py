@@ -11,6 +11,8 @@ from django.contrib.auth.views import (
 
 from users import views
 
+app_name = "users"
+
 urlpatterns = [
     path("users/", views.user_list, name="user_list"),
     path("users/<int:int_id>/", views.user_detail, name="user_detail"),
