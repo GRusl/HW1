@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 
 from django.db.models import Prefetch
@@ -11,7 +11,7 @@ from django.views.generic import CreateView
 from rating.models import Rating
 from users.models import Profile
 
-from users.forms import UserUpdateForm
+from users.forms import UserUpdateForm, RegisterForm
 
 
 class LoginView(LoginView):
@@ -24,7 +24,7 @@ class LoginView(LoginView):
 
 
 class SignupView(CreateView):
-    form_class = UserCreationForm
+    form_class = RegisterForm
     template_name = "users/signup.html"
 
     def get_success_url(self):
