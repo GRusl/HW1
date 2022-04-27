@@ -2,6 +2,14 @@
 	{% for item in items %}
 	<div class="card">
 		<div class="card-body">
+            {% for image in images %}
+				<img src="{{ image.get_image_400x300.url }}" alt="Image">
+				{% empty %}
+				<div class="alert alert-danger" role="alert">
+					Картинка отсутствует
+				</div>
+			{% endfor %}
+
 			<h3>{{ item.name }}</h3>
 
 			{% if item.tags.all %}
