@@ -2,12 +2,10 @@
 
 
 {% block title %}
-    Главная
+	Главная
 {% endblock title %}
 
 {% block content %}
-    <main>
-        <h1>Главная страница</h1>
-        {% include "catalog/include/mini_items.html" with items=items %}
-    </main>
+	<h1>Главная страница</h1>
+	{% include "catalog/include/mini_items.html" with items=items %}
 {% endblock content %}

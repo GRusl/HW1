@@ -2,12 +2,14 @@
 
 
 {% block title %}
-    Регистрация
+	Регистрация
 {% endblock title %}
 
 {% block content %}
-    <main>
-        <h1>Регистрация</h1>
-        {% include "core/include/form.html" with form=form btn_text="Регистрация" %}
-    </main>
+	<h1>Регистрация</h1>
+	<div class="card">
+		<div class="card-body">
+			{% include "core/include/form.html" with form=form btn_text="Регистрация" %}
+		</div>
+	</div>
 {% endblock content %}

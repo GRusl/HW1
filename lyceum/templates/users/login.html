@@ -2,12 +2,28 @@
 
 
 {% block title %}
-    Авторизация
+	Авторизация
 {% endblock title %}
 
 {% block content %}
-    <main>
-        {% include "core/include/form.html" with form=form btn_text="Войти" %}
-        <a href="{% url "auth:signup" %}">Зарегистрироваться</a>
-    </main>
+	<h1>Вход</h1>
+	<div class="container overflow-hidden">
+
+		<div class="card">
+			<div class="card-body">
+				<div class="row gy-2">
+					{% include "core/include/form.html" with form=form btn_text="Войти" %}
+					<section class="container">
+						<div class="container">
+							<a class="btn btn-danger" href="{% url 'auth:password_reset' %}">Забыл пароль</a>
+							<a class="btn btn-success" href="{% url 'auth:signup' %}">Регистрация</a>
+						</div>
+					</section>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
 {% endblock content %}
