@@ -22,7 +22,7 @@
 					{% endif %}
 				</div>
 				<div class="card-body">
-					<a href="{% url 'user_detail' user.id %}" class="btn btn-primary">Подробнее</a>
+					<a href="{% url 'auth:user_detail' user.id %}" class="btn btn-primary">Подробнее</a>
 				</div>
 			</div>
 			{% empty %}

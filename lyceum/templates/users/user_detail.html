@@ -12,15 +12,19 @@
 			{% if user_.first_name %}
 				<p>Имя: {{ user_.first_name }}</p>
 			{% endif %}
+
 			{% if user_.last_name %}
 				<p>Фамилия: {{ user_.last_name }}</p>
 			{% endif %}
+
 			{% if user_.email %}
 				<p>Почта: {{ user_.email }}</p>
 			{% endif %}
+
 			{% if user_.profile.birthday %}
 				<p>День рождения: {{ user_.profile.birthday }}</p>
 			{% endif %}
+
 			{% if items %}
 				<h3>Список любимых товаров</h3>
 				<ul>

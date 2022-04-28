@@ -55,4 +55,4 @@ class ItemDetail(View):
             rating.star = form.cleaned_data["star"]
             rating.save(update_fields=["star"])
 
-        return redirect("item_detail", int_id=int_id)
+        return redirect("catalog:item_detail", int_id=int_id)

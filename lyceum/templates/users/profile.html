@@ -16,7 +16,7 @@
         {% include "core/include/form.html" with form=form btn_text="Сохранить" %}
 
         {% for rating in best_ratings %}
-            <a href="/catalog/{{ rating.id }}">{{ rating.item.name }}</a><br>
+            <a href="{% url 'catalog:item_detail' rating.id %}">{{ rating.item.name }}</a><br>
         {% endfor %}
     </main>
 {% endblock content %}

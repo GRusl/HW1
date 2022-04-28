@@ -15,7 +15,7 @@
 				{{ item.text|truncatewords:10|linebreaks|default:"Очень хороший товар!" }}
 				{% endautoescape %}
 			</div>
-			<a href="{% url 'item_detail' item.id %}" class="btn btn-primary">Подробнее</a>
+			<a href="{% url 'catalog:item_detail' item.id %}" class="btn btn-primary">Подробнее</a>
 		</div>
 	</div>
 	{% empty %}
