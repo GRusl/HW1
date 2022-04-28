@@ -25,13 +25,11 @@
 				<p>День рождения: {{ user_.profile.birthday }}</p>
 			{% endif %}
 
-			{% if items %}
+			{% if best_ratings %}
 				<h3>Список любимых товаров</h3>
-				<ul>
-					{% for item in items %}
-						<li>{{ item.name }}</li>
-					{% endfor %}
-				</ul>
+				{% for rating in best_ratings %}
+                    <a href="{% url 'catalog:item_detail' rating.id %}">{{ rating.item.name }}</a><br>
+                {% endfor %}
 			{% else %}
 				<div class="alert alert-danger" role="alert">
 					Любимых товаров нет
